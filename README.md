@@ -22,4 +22,8 @@ Konvence atp.
 * zatim píšeme testovací kód, tak se asi nemusíme obtěžovat ošetřováním všech výjimek a generování unit testů ke všem 
 funkcím
 
+Jak to používat
+-----------
+V src je ct_evaluation.py. Tenhle skript slouží k měření času, který je potřeba ke zpracování jednoho obrázku. Výsledky
+jsou pro vizuální kontrolu a porovnání zobrazovány v oknech.
 
