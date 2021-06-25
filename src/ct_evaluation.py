@@ -11,7 +11,7 @@ def measure_time(f):
     """
     decorating function to measure time of function f execution
     :param f: function whose time is measured
-    :return: the results of function f and total time of its execution
+    :return: the results of function f
     """
 
     # noinspection PyShadowingNames
@@ -19,7 +19,6 @@ def measure_time(f):
     def wrapper(*args, **kwargs):
         start = time()
         result = f(*args, **kwargs)
-        print(result)
         end = time()
         duration = end - start
         # print('Elapsed time: {} seconds'.format(duration) + ' for function ' + f.__name__)
@@ -27,8 +26,7 @@ def measure_time(f):
             results_dict[f.__name__] = [duration]
         else:
             results_dict[f.__name__].append(duration)
-        return result, duration
-
+        return result
     return wrapper
 
 
@@ -63,7 +61,7 @@ for image_name in images:
             processed_img = eval(function_name + "(img, car_cascade)")
         else:
             processed_img = eval(function_name + "(img)")
-        cv2.imshow(function_name + " result", processed_img[0])  # np array is returned by function as tuple.
+        cv2.imshow(function_name + " result", processed_img)
         if cv2.waitKey(33) == 27:  # 27 = ESC to quit script
             average_results(results_dict)  # compute average computational times and write them to file
             exit()
