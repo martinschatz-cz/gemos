@@ -33,6 +33,11 @@ def measure_time(f):
 
 
 def average_results(results_dictionary):
+    """
+    Function to estimate average processing time for each evaluated method, results are appended to text file
+    :param results_dictionary: keywords are names of evaluated function, values are lists of processing times
+    :return: None.
+    """
     with open(os.path.join("..", "avg_results"), "a") as f:
         for key in results_dictionary:
             f.write(key + " {}\n".format(np.average(results_dict[key])))
@@ -50,16 +55,16 @@ car_cascade = cv2.CascadeClassifier(cascade_src)  # load haar cascade classifier
 
 function_names = ["detect_car_haar"]  # add here your function name you want to evaluate and compare
 for image_name in images:
-    img = cv2.imread(os.path.join(img_path, image_name))
+    img = cv2.imread(os.path.join(img_path, image_name))  # read image
     # ADD HERE YOUR FUNCTION TO GET A TIME
-    for function_name in function_names:
+    for function_name in function_names:  # to evaluate multiple functions
         processed_img = eval("detect_car_haar(img, car_cascade)")
         if function_name == "detect_car_haar":  # haar cascade is needed to be loaded and passed as param (i am lazy)
             processed_img = eval(function_name + "(img, car_cascade)")
         else:
             processed_img = eval(function_name + "(img)")
-        cv2.imshow(function_name + " result", processed_img[0])  # np array is returned by function as tuple
+        cv2.imshow(function_name + " result", processed_img[0])  # np array is returned by function as tuple.
         if cv2.waitKey(33) == 27:  # 27 = ESC to quit script
-            average_results(results_dict)
+            average_results(results_dict)  # compute average computational times and write them to file
             exit()
 
