@@ -10,7 +10,7 @@ scale_position = ((223, 584), (521, 577), (570, 617), (249, 625))
 
 
 
-img_path = os.path.join("..", "data", "VAHA2")  # path to processed directory
+img_path = os.path.join("..", "data", "VAHA1")  # path to processed directory
 images = os.listdir(img_path)  # list of images in processed directory
 
 kernel = np.ones((21, 21), np.uint8)
@@ -19,13 +19,15 @@ background = cv2.imread(os.path.join("..", "data", "background_test_vaha2.jpg"))
 background = cv2.cvtColor(background, cv2.COLOR_RGB2GRAY)
 
 
-background_subtractor = cv2.createBackgroundSubtractorMOG2()
+background_subtractor = cv2.createBackgroundSubtractorMOG2()  # check settings
+# zkusit entropii
+# klasifikovat kontury
 # 2550 motorka
-# 1750 sum
-wierd_img = 2550
+# 1750 sum, 4120
+wierd_img = 1300
 for idx, image in enumerate(images[wierd_img:10000]):
     original_image = cv2.imread(os.path.join(img_path, image))
-    original_image = cv2.blur(original_image, (3, 3))
+    original_image = cv2.blur(original_image, (3, 3))  # 3,3
     subtracted_image = background_subtractor.apply(original_image)
     eroded = cv2.erode(subtracted_image, kernel, cv2.BORDER_REFLECT)
 
